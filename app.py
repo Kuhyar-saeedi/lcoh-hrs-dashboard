@@ -40,7 +40,8 @@ with c2:
     st.markdown('<div style="text-align:right;padding-top:0.6rem">'
                 '<b>Kuhyar Saeedi</b><br>'
                 '<span class="small">Matricola 0384251 · Engineering Management<br>'
-                'Clean Hydrogen Technologies · Tor Vergata</span></div>',
+                'Clean Hydrogen Technologies · Tor Vergata<br>'
+                '<b>Supervisor: Prof. Vesselin K. Krastev</b></span></div>',
                 unsafe_allow_html=True)
 st.divider()
 
@@ -308,4 +309,5 @@ Naples 1,497 · Milan 1,369 kWh/kWp/yr.
 
 st.divider()
 st.caption("Built with Streamlit · model reimplemented in Python from the Excel workbook · "
-           "Kuhyar Saeedi, Clean Hydrogen Technologies, Università di Roma Tor Vergata.")
+           "Kuhyar Saeedi (Matricola 0384251) · Supervisor: Prof. Vesselin K. Krastev · "
+           "Clean Hydrogen Technologies, Università degli Studi di Roma Tor Vergata · A.Y. 2025/2026.")
