@@ -84,9 +84,9 @@ best = min(rows_n, key=lambda r: r["lcoh"])
 worst = max(rows_n, key=lambda r: r["lcoh"])
 
 # ================= TABS =================
-t_over, t_expl, t_all, t_sens, t_loc, t_about = st.tabs(
+t_over, t_expl, t_all, t_sens, t_loc, t_about, t_files = st.tabs(
     ["📊 Overview", "🔬 LCOH Explorer", "🗂️ All 12 configs",
-     "📈 Sensitivity", "🗺️ Location & CO₂", "📖 Methodology"])
+     "📈 Sensitivity", "🗺️ Location & CO₂", "📖 Methodology", "📥 Downloads"])
 
 # ---------- OVERVIEW ----------
 with t_over:
@@ -291,21 +291,51 @@ S3 no storage CAPEX · S4 90/10 energy split.
 **PV yields** taken from PVGIS-SARAH3 (optimized tilt/azimuth, 14% loss):
 Naples 1,497 · Milan 1,369 kWh/kWp/yr.
 """)
+
+# ---------- DOWNLOADS ----------
+with t_files:
+    st.subheader("Project files")
+    st.markdown("All deliverables for this project are available for download below.")
     st.divider()
-    st.markdown("**Downloads**")
-    d1, d2, d3 = st.columns(3)
     rp = os.path.join(ASSETS, "LCOH_Report_Kuhyar_Saeedi.pdf")
     xl = os.path.join(ASSETS, "LCOH_Model_Kuhyar_Saeedi.xlsx")
-    if os.path.exists(rp):
-        d1.download_button("📄 Full report (PDF)", open(rp, "rb").read(),
-                           "LCOH_Report_Kuhyar_Saeedi.pdf", "application/pdf")
-    if os.path.exists(xl):
-        d2.download_button("📊 Excel model", open(xl, "rb").read(),
-                           "LCOH_Model_Kuhyar_Saeedi.xlsx")
-    d3.markdown("[📚 Source paper (Minutillo 2021, DOI)]"
-                "(https://doi.org/10.1016/j.ijhydene.2020.11.110)")
-    st.caption("The source paper is © Elsevier and is not redistributed here — the link "
-               "points to the publisher via its DOI.")
+    pp = os.path.join(ASSETS, "LCOH_Presentation_Kuhyar_Saeedi.pptx")
+
+    f1, f2, f3 = st.columns(3)
+    with f1:
+        st.markdown("#### 📄 Report")
+        st.caption("Full techno-economic report (13 pages) — methodology, all 12 configurations, "
+                   "sensitivity analysis, location comparison, and CO₂ intensity.")
+        if os.path.exists(rp):
+            st.download_button("Download report (PDF)", open(rp, "rb").read(),
+                               "LCOH_Report_Kuhyar_Saeedi.pdf", "application/pdf",
+                               use_container_width=True)
+    with f2:
+        st.markdown("#### 📊 Excel model")
+        st.caption("Live-formula workbook — every cell traces back to the Parameters sheet. "
+                   "Change any input and the LCOH recalculates across all 12 configurations.")
+        if os.path.exists(xl):
+            st.download_button("Download Excel model", open(xl, "rb").read(),
+                               "LCOH_Model_Kuhyar_Saeedi.xlsx",
+                               use_container_width=True)
+    with f3:
+        st.markdown("#### 📽️ Presentation")
+        st.caption("Slide deck for the oral exam — results, cost breakdown, sensitivity, "
+                   "location comparison, and conclusions.")
+        if os.path.exists(pp):
+            st.download_button("Download presentation", open(pp, "rb").read(),
+                               "LCOH_Presentation_Kuhyar_Saeedi.pptx",
+                               use_container_width=True)
+
+    st.divider()
+    st.markdown("#### 📚 Source paper")
+    st.markdown("Minutillo, M., Perna, A., Forcina, A., Di Micco, S., Jannelli, E. (2021). "
+                "*Analyzing the levelized cost of hydrogen in refueling stations with on-site "
+                "hydrogen production via water electrolysis in the Italian scenario.* "
+                "International Journal of Hydrogen Energy, 46(26), 13667–13677.")
+    st.markdown("[Open paper via DOI →](https://doi.org/10.1016/j.ijhydene.2020.11.110)")
+    st.caption("The source paper is © Elsevier and is not redistributed here — "
+               "the link points to the publisher via its DOI.")
 
 st.divider()
 st.caption("Built with Streamlit · model reimplemented in Python from the Excel workbook · "
